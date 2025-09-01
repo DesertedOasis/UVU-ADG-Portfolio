@@ -1,0 +1,25 @@
+// Create a simple snowman model in Maya using MEL script
+// creates snowman base
+polySphere -radius 3 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "SnowMan_Base";
+move -relative -objectSpace -worldSpaceDistance 0 3 0 ;
+// creates snowman middle
+polySphere -radius 2 -subdivisionsX 15 -subdivisionsY 15 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "SnowMan_Middle";
+move -relative -objectSpace -worldSpaceDistance 0 7 0 ;
+//creates snowman head
+polySphere -radius 1.25 -subdivisionsX 15 -subdivisionsY 15 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "SnowMan_Head";
+move -relative -objectSpace -worldSpaceDistance 0 9.5 0 ;
+// creates snowman nose
+polyCone -r 0.2 -h 1 -sx 10 -sy 1 -sz 0 -ax 0 0 1 -rcp 0 -cuv 3 -ch 1;
+move -relative -objectSpace -worldSpaceDistance 0 9.5 1.5 ;
+// creates snowman eyes
+polySphere -radius .2 -subdivisionsX 15 -subdivisionsY 15 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "SnowManLeftEye";
+move -relative -objectSpace -worldSpaceDistance .5 9.8 1 ;
+polySphere -radius .2 -subdivisionsX 15 -subdivisionsY 15 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "SnowManRightEye";
+move -relative -objectSpace -worldSpaceDistance -.5 9.8 1 ;
+// creates snowman buttons
+polySphere -radius .15 -subdivisionsX 10 -subdivisionsY 10 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "SnowManTopButton";
+move -relative -objectSpace -worldSpaceDistance 0 7.9 1.7 ;
+polySphere -radius .15 -subdivisionsX 10 -subdivisionsY 10 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "SnowManMiddleButton";
+move -relative -objectSpace -worldSpaceDistance 0 7 1.9 ;
+polySphere -radius .15 -subdivisionsX 10 -subdivisionsY 10 -axis 0 1 0 -createUVs 2 -constructionHistory 1 -name "SnowManBottomButton";
+move -relative -objectSpace -worldSpaceDistance 0 6.1 1.7 ;
