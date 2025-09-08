@@ -1,0 +1,22 @@
+// controls the radius of the snowman's base sphere
+float $size = 6;
+
+//controls snowman placement on the x axiz
+float $xmove = 08;
+
+//controls snowman placement on the y axiz
+float $ymove = -10;
+
+// controls snowman placement on the z axiz
+float $zmove = 0;
+
+// controls how deep the spheres are sunk into each other
+float $SphereDepth = .3;
+
+//creates the spheres and move them into place
+polySphere -radius $size -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
+move -r -os -wd $xmove ($ymove + $size) $zmove ;
+polySphere -radius ($size / 1.5) -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
+move -r -os -wd $xmove ($ymove + (($size * (2 - $SphereDepth)) + $size / 1.5)) $zmove ;
+polySphere -radius ($size / 3) -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1;
+move -r -os -wd $xmove ($ymove + (($size * (2 - $SphereDepth)) + (($size / 1.5) * (2 - $SphereDepth)) + ($size / 3))) $zmove ; 
