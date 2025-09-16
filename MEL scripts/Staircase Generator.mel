@@ -1,0 +1,15 @@
+// Staircase Generator
+// Staircase will generate with steps offset around the center by default, but can be adjusted with the offset parameter if you desire a different look
+proc GenerateStaircase(int $Stairs, float $Slength, float $Swidth, float $Sheight, float $Soffset, float $StepHeight, float $SRotation)
+{
+    for ($i=0; $i<$Stairs; $i++) 
+    {
+    polyCube -w $Swidth -h $Sheight -d $Slength;
+    rotate -r 0 ($SRotation*$i) 0;
+    move -os 0 ($i * $StepHeight) (($Slength/2) + $Soffset);
+    
+    
+    }
+    polyCylinder -r ($Swidth/1.5) -h ($StepHeight*$Stairs) -sx 15 -sy 1 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1 ;
+    move -r 0 (($StepHeight*$Stairs)/2) 0;
+}
