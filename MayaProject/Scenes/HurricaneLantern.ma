@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
 //Name: HurricaneLantern.ma
-//Last modified: Mon, Sep 22, 2025 03:54:45 PM
+//Last modified: Mon, Sep 22, 2025 03:55:54 PM
 //Codeset: 1252
 requires maya "2025ff03";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
@@ -11,17 +11,17 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 26100)";
-fileInfo "UUID" "580024DB-4ED5-6A8F-C863-A8B41AC8F0E9";
+fileInfo "UUID" "A6A656B1-472D-F043-DBC7-F4BFDA04B888";
 createNode transform -s -n "persp";
 	rename -uid "85C36619-4CAA-C294-3A2C-4280DFAC4776";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 6.4499722721320012 13.461967194316909 -37.573737264106583 ;
-	setAttr ".r" -type "double3" -2.7383527307917035 -187.3999999997678 0 ;
+	setAttr ".t" -type "double3" 7.6691470791096847 44.737131600837429 -43.146514942365854 ;
+	setAttr ".r" -type "double3" -27.338352730790731 -188.99999999976458 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "5BC9D7B1-4BBE-67D8-BB18-248EB913C948";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 40.330496707240627;
+	setAttr ".coi" 51.214659030654147;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -16049,6 +16049,10 @@ createNode polyTweakUV -n "polyTweakUV5";
 		 0.30204213 0.35711139 -0.94164377 -0.095863082 0.41415426 0.033537567 0.89204144
 		 0.7741763 0.28559881 0.35428324 0.19731796 0.0014285035 0.88983512 0.77372861 0.19738519
 		 0.0021858923 -0.14281261 -0.016299248;
+createNode polyMapSew -n "polyMapSew3";
+	rename -uid "2485A9D3-41DB-73FA-3EFA-7EA42FB18E7F";
+	setAttr ".uopa" yes;
+	setAttr ".ics" -type "componentList" 4 "e[284]" "e[290]" "e[315]" "e[317]";
 select -ne :time1;
 	setAttr ".o" 1;
 	setAttr ".unw" 1;
@@ -16097,7 +16101,7 @@ select -ne :hardwareRenderGlobals;
 	setAttr ".btrs" 512;
 connectAttr "groupId16.id" "polySurfaceShape2.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "polySurfaceShape2.iog.og[0].gco";
-connectAttr "polyTweakUV5.out" "polySurfaceShape2.i";
+connectAttr "polyMapSew3.out" "polySurfaceShape2.i";
 connectAttr "polyTweakUV5.uvtk[0]" "polySurfaceShape2.uvst[0].uvtw";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
@@ -16180,6 +16184,7 @@ connectAttr "polyTweakUV3.out" "polyLayoutUV1.ip";
 connectAttr "polyLayoutUV1.out" "polyTweakUV4.ip";
 connectAttr "polyTweakUV4.out" "polyLayoutUV2.ip";
 connectAttr "polyLayoutUV2.out" "polyTweakUV5.ip";
+connectAttr "polyTweakUV5.out" "polyMapSew3.ip";
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "lanternHandleShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape2.iog.og[0]" ":initialShadingGroup.dsm" -na;
