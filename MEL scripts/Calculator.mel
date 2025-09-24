@@ -147,5 +147,5 @@ global proc calculate(float $userinput[], int $operation)
 
    
 }
-calculate({10, 5, 3}, 1); // Example 
+// Example: calculate({10, 5, 3}, 1); 
  
