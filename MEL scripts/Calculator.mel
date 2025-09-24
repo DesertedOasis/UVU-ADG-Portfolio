@@ -1,0 +1,151 @@
+
+// adds numbers and prints the result.
+global proc addition( float $input[])
+{
+    float $sum = 0.0;
+    int $size = size($input);
+    for ($i = 0; $i < $size; $i++)
+     {
+    $sum += $input[$i];
+     }
+    print ("Total sum: " + $sum + "\n");
+    return $sum;
+}
+
+// subtracts numbers and prints the result.
+global proc subtraction( float $input[])
+{
+    float $dif = 0.0;
+    int $size = size($input);
+    for ($i = 0; $i < $size; $i++)
+     {
+    $dif -= $input[$i];
+     }
+    print ("difference: " + $dif + "\n");
+    return $dif;
+}
+
+// multiplies two numbers and prints the result.
+global proc multiplication(float $input[])
+{
+    float $prod = 1;
+    int $size = size($input);
+    for ($i = 0; $i < $size; $i++)
+     {
+    $prod *= $input[$i];
+     }
+    print ("product: " + $prod + "\n");
+    return $prod;
+}
+
+
+// divides two numbers and prints the result.
+global proc division(float $input[])
+{
+    float $quo = 1;
+    int $size = size($input);
+    for ($i = 0; $i < $size; $i++)
+     {
+    if ($input[$i] != 0)
+    {
+        $quo /= $input[$i];
+    }
+    else
+    {
+        print("Error: Division by zero is not allowed.\n");
+        return;
+    }
+    
+     }
+    print ("quotient: " + $quo + "\n");
+    return $quo;
+    
+}
+
+// finds the median and prints the result.
+global proc median(float $input[])
+{
+    float $sum = 0.0;
+    int $size = size($input);
+    for ($i = 0; $i < $size; $i++)
+     {
+    $sum += $input[$i];
+     }
+    float $median = $sum / $size;
+    print("The median is: " + $median + "\n");
+    return $median;
+    
+}
+
+// finds the average and prints the result.
+global proc average(float $input[])
+{
+    float $sum = 0.0;
+    int $size = size($input);
+    for ($i = 0; $i < $size; $i++)
+     {
+    $sum += $input[$i];
+     }
+    float $average = $sum / $size;
+    print("The average is: " + $average + "\n");
+    return $average;
+}
+
+// raises num1 to the power of num2 and prints the result.
+global proc power(float $input[])
+{
+    if (size($input) < 2)
+    {
+        print("Error: At least two numbers are required for the power operation.\n");
+        return;
+    }
+    else
+    {
+      float $result = `pow $input[0] $input[1]`;
+        print($input[0] + " raised to the power of " + $input[1] + " is: " + $result + "\n");  
+    }
+    return $result;
+}
+
+
+
+// main execution
+global proc calculate(float $userinput[], int $operation)
+{
+    if ($operation == 1)
+    {
+        addition($userinput);
+    }
+    else if ($operation == 2)
+    {
+        subtraction($userinput);
+    }
+    else if ($operation == 3)
+    {
+        multiplication($userinput);
+    }
+    else if ($operation == 4)
+    {
+        division($userinput);
+    }
+    else if ($operation == 5)
+    {
+        median($userinput);
+    }
+    else if ($operation == 6)
+    {
+        average($userinput);
+    }
+    else if ($operation == 7)
+    {
+        power($userinput);
+    }
+    else
+    {
+        print("Invalid operation selected.\n");
+    }
+
+   
+}
+calculate({10, 5, 3}, 1); // Example 
+ 
