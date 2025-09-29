@@ -8,7 +8,6 @@ global proc float addition( float $input[])
      {
     $sum += $input[$i];
      }
-    print ("Total sum: " + $sum + "\n");
     return $sum;
 }
 
@@ -26,7 +25,6 @@ global proc float subtraction(float $input[])
     {
         $dif -= $input[$i];
     }
-    print("Difference: " + $dif + "\n");
     return $dif;
 }
 
@@ -39,7 +37,6 @@ global proc float multiplication(float $input[])
      {
     $prod *= $input[$i];
      }
-    print ("product: " + $prod + "\n");
     return $prod;
 }
 
@@ -65,7 +62,6 @@ global proc float division(float $input[])
         $quo /= $input[$i];
     }
 
-    print("Quotient: " + $quo + "\n");
     return $quo;
 }
 
@@ -94,7 +90,6 @@ global proc float median(float $input[])
         $med = $sorted[$size/2];
     }
 
-    print("Median: " + $med + "\n");
     return $med;
 }
 
@@ -114,7 +109,6 @@ global proc float average(float $input[])
     $sum += $input[$i];
      }
     float $average = $sum / $size;
-    print("The average is: " + $average + "\n");
     return $average;
 }
 
@@ -129,7 +123,6 @@ global proc float power(float $input[])
     else
     {
       float $result = `pow $input[0] $input[1]`;
-        print($input[0] + " raised to the power of " + $input[1] + " is: " + $result + "\n");  
         return $result;
     }
     
@@ -140,40 +133,64 @@ global proc float power(float $input[])
 // main execution
 global proc calculate(float $userinput[], int $operation)
 {
+    string $opName = "";
+    float $result = 0;
     if ($operation == 1)
     {
-        addition($userinput);
+        $result = addition($userinput);
+        $opName = "+";
     }
     else if ($operation == 2)
     {
-        subtraction($userinput);
+        $result = subtraction($userinput);
+        $opName = "-";
     }
     else if ($operation == 3)
     {
-        multiplication($userinput);
+        $result = multiplication($userinput);
+        $opName = "*";
     }
     else if ($operation == 4)
     {
-        division($userinput);
+        $result = division($userinput);
+        $opName = "/";
     }
     else if ($operation == 5)
     {
-        median($userinput);
+        $result = median($userinput);
+        $opName = "median";
     }
     else if ($operation == 6)
     {
-        average($userinput);
+        $result = average($userinput);
+        $opName = "average";
     }
     else if ($operation == 7)
     {
-        power($userinput);
+        $result = power($userinput);
+        $opName = "^";
     }
     else
     {
         print("Invalid operation selected.\n");
+        return;
     }
 
-   
+    // Format input numbers as a string
+    string $inputStr = "";
+    for ($i = 0; $i < size($userinput); $i++) {
+        $inputStr += $userinput[$i];
+        if ($i < size($userinput)-1) $inputStr += ", ";
+    }
+
+    // Print the operation performed
+    if ($opName == "median" || $opName == "average") {
+        print ("Inputs: [" + $inputStr + "] | Operation: " + $opName + " | Result: " + $result + "\n");
+    } else if ($opName == "^") {
+        print ("Inputs: [" + $inputStr + "] | Operation: power | Result: " + $result + "\n");
+    } else {
+        print ("Inputs: [" + $inputStr + "] | Operation: " + $opName + " | Result: " + $result + "\n");
+    }
 }
 // Example: calculate({10, 5, 3}, 1); 
  
