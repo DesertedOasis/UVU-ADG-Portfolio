@@ -1,0 +1,35 @@
+global proc duplicateAndRandomize(
+    int $numDuplicates,
+    float $minX, float $maxX,
+    float $minY, float $maxY,
+    float $minZ, float $maxZ
+) {
+    string $selection[] = `ls -sl`;
+    if (size($selection) == 0) {
+        warning "No objects selected.";
+        return;
+    }
+    for ($i = 0; $i < $numDuplicates; $i++) {
+        for ($obj in $selection) {
+            string $dup[] = `duplicate $obj`;
+            float $randX = rand($minX, $maxX);
+            float $randY = rand($minY, $maxY);
+            float $randZ = rand($minZ, $maxZ);
+            move $randX $randY $randZ $dup[0];
+        }
+    }
+}
+
+global proc openDuplicateRandomizerUI() {
+    if (`window -exists dupRandWin`) deleteUI dupRandWin;
+    window -title "Duplicate & Randomize" dupRandWin;
+    columnLayout -adj true;
+    intFieldGrp -label "Number of Duplicates" -numberOfFields 1 numDupField;
+    floatFieldGrp -label "Min X Y Z" -numberOfFields 3 minField;
+    floatFieldGrp -label "Max X Y Z" -numberOfFields 3 maxField;
+    button -label "Duplicate and Randomize" -command "int $numDup = `intFieldGrp -q -v1 numDupField`; float $minX = `floatFieldGrp -q -v1 minField`; float $minY = `floatFieldGrp -q -v2 minField`; float $minZ = `floatFieldGrp -q -v3 minField`; float $maxX = `floatFieldGrp -q -v1 maxField`; float $maxY = `floatFieldGrp -q -v2 maxField`; float $maxZ = `floatFieldGrp -q -v3 maxField`; duplicateAndRandomize($numDup, $minX, $maxX, $minY, $maxY, $minZ, $maxZ);";
+    showWindow dupRandWin;
+}
+
+
+// To use: Run openDuplicateRandomizerUI();
