@@ -1,0 +1,336 @@
+// adds numbers and prints the result.
+global proc float addition( float $input[])
+{
+    float $sum = 0.0;
+    int $size = size($input);
+    for ($i = 0; $i < $size; $i++)
+     {
+    $sum += $input[$i];
+     }
+    return $sum;
+}
+
+
+// subtracts numbers and prints the result.
+global proc float subtraction(float $input[])
+{
+    int $size = size($input);
+    if ($size == 0) {
+        print("Error: No input provided.\n");
+        return 0;
+    }
+
+    float $dif = $input[0];
+    for ($i = 1; $i < $size; $i++)
+    {
+        $dif -= $input[$i];
+    }
+    return $dif;
+}
+
+// multiplies two numbers and prints the result.
+global proc float multiplication(float $input[])
+{
+    float $prod = 1;
+    int $size = size($input);
+    for ($i = 0; $i < $size; $i++)
+     {
+    $prod *= $input[$i];
+     }
+    return $prod;
+}
+
+
+// divides two numbers and prints the result.
+global proc float division(float $input[])
+{
+    int $size = size($input);
+    if ($size == 0) {
+        print("Error: No input provided.\n");
+        return 0;
+    }
+
+    float $quo = $input[0];
+
+    for ($i = 1; $i < $size; $i++)
+    {
+        if ($input[$i] == 0)
+        {
+            print("Error: Division by zero is not allowed.\n");
+            return 0;
+        }
+        $quo /= $input[$i];
+    }
+
+    return $quo;
+}
+
+
+// finds the median and prints the result.
+global proc float median(float $input[])
+{
+    int $size = size($input);
+    if ($size == 0) {
+        print("Error: No input provided for median.\n");
+        return 0;
+    }
+
+    float $sorted[] = `sort $input`;
+
+    float $med;
+
+    if ($size % 2 == 0)
+    {
+        // Even number of elements: average of two middle values
+        $med = ($sorted[$size/2] + $sorted[($size/2)-1]) / 2.0;
+    }
+    else
+    {
+        // Odd number of elements: return middle value
+        $med = $sorted[$size/2];
+    }
+
+    return $med;
+}
+
+
+
+// finds the average and prints the result.
+global proc float average(float $input[])
+{
+    float $sum = 0.0;
+    int $size = size($input);
+    if ($size == 0) {
+    print("Error: No input provided for average.\n");
+    return 0;
+}
+    for ($i = 0; $i < $size; $i++)
+     {
+    $sum += $input[$i];
+     }
+    float $average = $sum / $size;
+    return $average;
+}
+
+// raises num1 to the power of num2 and prints the result.
+global proc float power(float $input[])
+{
+    if (size($input) < 2)
+    {
+        print("Error: At least two numbers are required for the power operation.\n");
+        return 0;
+    }
+    else
+    {
+      float $result = `pow $input[0] $input[1]`;
+        return $result;
+    }
+    
+}
+
+
+
+// main execution
+global proc float calculate(float $userinput[], int $operation)
+{
+    string $opName = "";
+    float $result = 0;
+    if ($operation == 1)
+    {
+        $result = addition($userinput);
+        $opName = "+";
+    }
+    else if ($operation == 2)
+    {
+        $result = subtraction($userinput);
+        $opName = "-";
+    }
+    else if ($operation == 3)
+    {
+        $result = multiplication($userinput);
+        $opName = "*";
+    }
+    else if ($operation == 4)
+    {
+        $result = division($userinput);
+        $opName = "/";
+    }
+    else if ($operation == 5)
+    {
+        $result = median($userinput);
+        $opName = "median";
+    }
+    else if ($operation == 6)
+    {
+        $result = average($userinput);
+        $opName = "average";
+    }
+    else if ($operation == 7)
+    {
+        $result = power($userinput);
+        $opName = "^";
+    }
+    else
+    {
+        print("Invalid operation selected.\n");
+        return 0;
+    }
+
+    // Format input numbers as a string
+    string $inputStr = "";
+    for ($i = 0; $i < size($userinput); $i++) {
+        $inputStr += $userinput[$i];
+        if ($i < size($userinput)-1) $inputStr += ", ";
+    }
+
+    // Print the operation performed
+    if ($opName == "median" || $opName == "average") {
+        print ("Inputs: [" + $inputStr + "] | Operation: " + $opName + " | Result: " + $result + "\n");
+    } else if ($opName == "^") {
+        print ("Inputs: [" + $inputStr + "] | Operation: power | Result: " + $result + "\n");
+    } else {
+        print ("Inputs: [" + $inputStr + "] | Operation: " + $opName + " | Result: " + $result + "\n");
+    }
+    // return the numeric result so callers can use it programmatically
+    return $result;
+}
+// Example: calculate({10, 5, 3}, 1);
+
+// -----------------------------
+// Simplified List-based UI
+// -----------------------------
+// calculatorUI_simple uses a floatField + Add button and a textScrollList
+// to collect numeric inputs. This avoids CSV parsing and is easier to read.
+global proc calculatorUI_simple()
+{
+    string $win = "CalculatorSimpleWin";
+    if (`window -exists $win`) deleteUI $win;
+
+    window -title "Calculator (Simple)" -widthHeight 380 220 $win;
+    columnLayout -adjustableColumn true;
+
+    // entry row
+    rowLayout -numberOfColumns 3 -columnWidth3 200 80 80;
+        text -label "Number:";
+        string $numField = `floatField -value 0.0 -precision 3`;
+    // Call the original two-arg add, then refresh controls using known control names
+    button -label "Add" -command ("calculator_simpleAdd \"" + $numField + "\" \"CalculatorSimpleList\"; calculator_simpleUpdateControls \"CalculatorSimpleList\" \"CalculatorSimpleOp\" \"CalculatorSimpleCalcBtn\"");
+    setParent ..;
+
+    // list to show current numbers
+    text -label "Numbers:";
+    // start with an empty textScrollList (no initial blank entry)
+    string $list = `textScrollList -allowMultiSelection false -h 80 -selectCommand ("calculator_simpleUpdateControls \"CalculatorSimpleList\" \"CalculatorSimpleOp\" \"CalculatorSimpleCalcBtn\"") "CalculatorSimpleList"`;
+
+    // operation and action buttons
+    rowLayout -numberOfColumns 4 -columnWidth4 110 110 80 80;
+        optionMenu -label "Op" -width 110 -changeCommand ("calculator_simpleUpdateControls \"CalculatorSimpleList\" \"CalculatorSimpleOp\" \"CalculatorSimpleCalcBtn\"") CalculatorSimpleOp;
+            menuItem -label "Addition (+)";
+            menuItem -label "Subtraction (-)";
+            menuItem -label "Multiplication (*)";
+            menuItem -label "Division (/)";
+            menuItem -label "Median";
+            menuItem -label "Average";
+            menuItem -label "Power (a^b)";
+        // name the Calculate button so we can enable/disable it programmatically
+        button -label "Calculate" -command ("calculator_simpleCalc \"CalculatorSimpleList\" \"CalculatorSimpleOp\" \"CalculatorSimpleResult\"") "CalculatorSimpleCalcBtn";
+        button -label "Remove Selected" -command ("calculator_simpleRemoveSelected \"CalculatorSimpleList\" \"CalculatorSimpleOp\" \"CalculatorSimpleCalcBtn\"");
+        button -label "Clear List" -command ("textScrollList -e -removeAll \"CalculatorSimpleList\"; calculator_simpleUpdateControls \"CalculatorSimpleList\" \"CalculatorSimpleOp\" \"CalculatorSimpleCalcBtn\"");
+    setParent ..;
+
+    // result
+    text -label "Result:";
+    // name the control explicitly instead of using an invalid '-key' flag
+    string $resField = `textField -text "" -w 360 -enable false "CalculatorSimpleResult"`;
+
+    showWindow $win;
+}
+
+// Add number from floatField into textScrollList
+// Keep old two-argument signature to avoid "different argument list" warnings
+global proc calculator_simpleAdd(string $floatFieldName, string $listName)
+{
+    float $v = `floatField -q -value $floatFieldName`;
+    textScrollList -e -append ($v) $listName;
+    // refresh controls using the known control names
+    calculator_simpleUpdateControls($listName, "CalculatorSimpleOp", "CalculatorSimpleCalcBtn");
+}
+
+// Read numbers from textScrollList into float array
+global proc float[] calculator_simpleReadList(string $listName)
+{
+    string $items[] = `textScrollList -q -allItems $listName`;
+    float $out[];
+    if (size($items) == 0) return $out;
+    for ($i = 0; $i < size($items); $i++)
+    {
+        $out[size($out)] = (float)$items[$i];
+    }
+    return $out;
+}
+
+// Calculate using the list-based UI
+global proc calculator_simpleCalc(string $listName, string $opMenuName, string $resultFieldName)
+{
+    float $nums[] = calculator_simpleReadList($listName);
+    if (size($nums) == 0)
+    {
+        textField -e -text "Error: List empty" $resultFieldName;
+        return;
+    }
+
+    string $op = `optionMenu -q -value $opMenuName`;
+    int $opIndex = 0;
+    if ($op == "Addition (+)") $opIndex = 1;
+    else if ($op == "Subtraction (-)") $opIndex = 2;
+    else if ($op == "Multiplication (*)") $opIndex = 3;
+    else if ($op == "Division (/)") $opIndex = 4;
+    else if ($op == "Median") $opIndex = 5;
+    else if ($op == "Average") $opIndex = 6;
+    else if ($op == "Power (a^b)") $opIndex = 7;
+
+    float $result = calculate($nums, $opIndex);
+    textField -e -text ("" + $result) $resultFieldName;
+}
+
+// To launch the simple UI, run:
+// calculatorUI_simple();
+
+// Update UI controls (enable/disable Calculate button based on op and item count)
+global proc calculator_simpleUpdateControls(string $listName, string $opMenuName, string $calcBtnName)
+{
+    string $items[] = `textScrollList -q -allItems $listName`;
+    int $count = size($items);
+    string $op = `optionMenu -q -value $opMenuName`;
+
+    // If power is selected and fewer than 2 inputs, disable Calculate
+    if ($op == "Power (a^b)" && $count < 2)
+    {
+        button -e -enable false $calcBtnName;
+    }
+    else
+    {
+        button -e -enable true $calcBtnName;
+    }
+}
+
+// Remove selected items and refresh controls
+global proc calculator_simpleRemoveSelected(string $listName, string $opMenuName, string $calcBtnName)
+{
+    // textScrollList doesn't support a direct -removeSelected flag across all Maya versions.
+    // Instead, query the selected items and remove them by value.
+    string $selItems[] = `textScrollList -q -selectItem $listName`;
+    if (size($selItems) > 0)
+    {
+        for ($i = 0; $i < size($selItems); $i++)
+        {
+            textScrollList -e -removeItem $selItems[$i] $listName;
+        }
+    }
+    // refresh controls
+    calculator_simpleUpdateControls($listName, $opMenuName, $calcBtnName);
+}
+
+// Automatically open the UI when this script is sourced in Maya
+// (This will recreate the window if it already exists.)
+calculatorUI_simple();

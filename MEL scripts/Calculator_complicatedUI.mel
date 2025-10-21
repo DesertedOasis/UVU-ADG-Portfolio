@@ -10,95 +10,6 @@ global proc float addition( float $input[])
     return $sum;
 }
 
-// -----------------------------
-// Simplified List-based UI
-// -----------------------------
-// calculatorUI_simple uses a floatField + Add button and a textScrollList
-// to collect numeric inputs. This avoids CSV parsing and is easier to read.
-global proc calculatorUI_simple()
-{
-    string $win = "CalculatorSimpleWin";
-    if (`window -exists $win`) deleteUI $win;
-
-    window -title "Calculator (Simple)" -widthHeight 380 220 $win;
-    columnLayout -adjustableColumn true;
-
-    // entry row
-    rowLayout -numberOfColumns 3 -columnWidth3 200 80 80;
-        text -label "Number:";
-        string $numField = `floatField -value 0.0 -precision 3`;
-        button -label "Add" -command ("calculator_simpleAdd \"" + $numField + "\" \"CalculatorSimpleList\"");
-    setParent ..;
-
-    // list to show current numbers
-    text -label "Numbers:";
-    string $list = `textScrollList -allowMultiSelection false -h 80 -append "" -selectCommand "" "CalculatorSimpleList"`;
-
-    // operation and action buttons
-    rowLayout -numberOfColumns 3 -columnWidth3 120 120 120;
-        optionMenu -label "Op" -width 120 CalculatorSimpleOp;
-            menuItem -label "Addition (+)";
-            menuItem -label "Subtraction (-)";
-            menuItem -label "Multiplication (*)";
-            menuItem -label "Division (/)";
-            menuItem -label "Median";
-            menuItem -label "Average";
-            menuItem -label "Power (a^b)";
-        button -label "Calculate" -command ("calculator_simpleCalc \"CalculatorSimpleList\" \"CalculatorSimpleOp\" \"CalculatorSimpleResult\"");
-        button -label "Clear List" -command ("textScrollList -e -removeAll \"CalculatorSimpleList\"");
-    setParent ..;
-
-    // result
-    text -label "Result:";
-    string $resField = `textField -text "" -w 360 -enable false -key "CalculatorSimpleResult"`;
-
-    showWindow $win;
-}
-
-// Add number from floatField into textScrollList
-global proc calculator_simpleAdd(string $floatFieldName, string $listName)
-{
-    float $v = `floatField -q -value $floatFieldName`;
-    textScrollList -e -append ($v) $listName;
-}
-
-// Read numbers from textScrollList into float array
-global proc float[] calculator_simpleReadList(string $listName)
-{
-    string $items[] = `textScrollList -q -allItems $listName`;
-    float $out[];
-    if (size($items) == 0) return $out;
-    for ($i = 0; $i < size($items); $i++)
-    {
-        $out[size($out)] = (float)$items[$i];
-    }
-    return $out;
-}
-
-// Calculate using the list-based UI
-global proc calculator_simpleCalc(string $listName, string $opMenuName, string $resultFieldName)
-{
-    float $nums[] = calculator_simpleReadList($listName);
-    if (size($nums) == 0)
-    {
-        textField -e -text "Error: List empty" $resultFieldName;
-        return;
-    }
-
-    string $op = `optionMenu -q -value $opMenuName`;
-    int $opIndex = 0;
-    if ($op == "Addition (+)") $opIndex = 1;
-    else if ($op == "Subtraction (-)") $opIndex = 2;
-    else if ($op == "Multiplication (*)") $opIndex = 3;
-    else if ($op == "Division (/)") $opIndex = 4;
-    else if ($op == "Median") $opIndex = 5;
-    else if ($op == "Average") $opIndex = 6;
-    else if ($op == "Power (a^b)") $opIndex = 7;
-
-    float $result = calculate($nums, $opIndex);
-    textField -e -text ("" + $result) $resultFieldName;
-}
-
 
 // subtracts numbers and prints the result.
 global proc float subtraction(float $input[])
@@ -299,11 +210,15 @@ global proc calculatorUI()
 
     // Input: numbers as comma-separated list
     text -label "Enter numbers (comma-separated):";
-    string $inputField = `textField -text "" -w 400 -placeholderText "e.g. 10, 5, 3"`;
+    // use fixed control name so other code can reference it predictably
+    string $inputField = "calcInputField";
+    textField -text "" -w 400 -placeholderText "e.g. 10, 5, 3" -ann "Numbers input" $inputField;
 
     // Operation menu
     text -label "Operation:";
-    string $opMenu = `optionMenu -changeCommand ""`;
+    // fixed name for predictable lookups
+    string $opMenu = "calcOpMenu";
+    optionMenu -changeCommand "" $opMenu;
     menuItem -label "Addition (+)";
     menuItem -label "Subtraction (-)";
     menuItem -label "Multiplication (*)";
@@ -314,17 +229,43 @@ global proc calculatorUI()
 
     // Result display
     text -label "Result:";
-    string $resultField = `textField -text "" -w 400 -enable false`;
+    // fixed name for result control
+    string $resultField = "calcResultField";
+    textField -text "" -w 400 -enable false $resultField;
 
     // Buttons row
     rowLayout -numberOfColumns 3 -columnWidth3 140 140 140 -adjustableColumn 2;
-        button -label "Calculate" -command ("calculatorUICalc \"" + $inputField + "\" \"" + $opMenu + "\" \"" + $resultField + "\"");
-        button -label "Clear" -command ("textField -e -text \"\" " + $inputField);
-        button -label "Close" -command ("deleteUI " + $win);
+    button -label "Calculate" -command ("calculatorUICalc \"" + $inputField + "\" \"" + $opMenu + "\" \"" + $resultField + "\"");
+    button -label "Clear" -command ("textField -e -text \"\" " + $inputField);
+    button -label "Close" -command ("deleteUI " + $win);
     setParent ..;
 
     showWindow $win;
 }
+
+// Helper: open the calculator UI, populate example inputs, and run a sample calculation
+global proc calculatorUI_withExample()
+{
+    // create the UI
+    calculatorUI();
+
+    // small delay to ensure UI widgets exist in some Maya builds (safe no-op elsewhere)
+    // try to set example values
+    string $example = "10, 5, 3";
+    // fill the input field
+    if (`textField -ex "calcInputField"`) textField -e -text $example "calcInputField";
+    else print ("Warning: input control not found.\n");
+
+    // set operation to Addition
+    if (`optionMenu -ex "calcOpMenu"`) optionMenu -e -value "Addition (+)" "calcOpMenu";
+
+    // trigger the calculation callback so result is shown
+    if (`textField -ex "calcResultField"`) calculatorUICalc("calcInputField", "calcOpMenu", "calcResultField");
+}
+
+// Auto-launch the calculator UI with example when this script is sourced
+// Some users may prefer to call calculatorUI() manually; keep this behavior simple to opt-out by commenting the call below.
+calculatorUI_withExample();
 
 // Helper: parse a comma separated string into a float array
 global proc float[] calculator_parseInput(string $str)
