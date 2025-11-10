@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
 //Name: astronautCharacterV02Textured.ma
-//Last modified: Sat, Nov 08, 2025 02:18:02 PM
+//Last modified: Sat, Nov 08, 2025 02:41:35 PM
 //Codeset: 1252
 requires maya "2025ff03";
 requires "stereoCamera" "10.0";
@@ -12,17 +12,17 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202505300603-a12e894a3d";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 26100)";
-fileInfo "UUID" "6D552599-4D5C-7734-AF2D-0885B11DBB31";
+fileInfo "UUID" "92BAFBF6-4053-A96F-CAEE-4F8C43400FFD";
 createNode transform -s -n "persp";
 	rename -uid "8257B64B-46E2-E2CA-2983-209E1FB11A16";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 1.1213179047649875 11.690432889937414 23.107072385174469 ;
-	setAttr ".r" -type "double3" -383.13835120710593 9365.8000000000284 1.9980754056986011e-16 ;
+	setAttr ".t" -type "double3" 1.6264249476439088 6.7825935342741834 8.0856042991801473 ;
+	setAttr ".r" -type "double3" -380.73835120709657 9376.6000000003187 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "5B815FD6-48A8-6839-E1E4-FBA208381AFB";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 19.338760610203614;
+	setAttr ".coi" 5.8817718530290808;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -86,7 +86,7 @@ createNode mesh -n "AstronautCharacterShape" -p "AstronautCharacter";
 	setAttr -s 12 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
-	setAttr ".pv" -type "double2" 0.49844755232334137 0.89250293374061584 ;
+	setAttr ".pv" -type "double2" 0.87881115078926086 0.14054936170578003 ;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
 	setAttr ".cuvs" -type "string" "map1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
