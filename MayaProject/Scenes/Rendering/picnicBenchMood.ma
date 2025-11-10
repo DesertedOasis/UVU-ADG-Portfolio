@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
-//Name: picnicBenchShowCase.ma
-//Last modified: Mon, Nov 10, 2025 03:07:01 PM
+//Name: picnicBenchMood.ma
+//Last modified: Mon, Nov 10, 2025 03:03:39 PM
 //Codeset: 1252
 file -rdi 1 -ns "parkingLotSegment" -rfn "parkingLotSegmentRN" -op "v=0;" -typ
 		 "mayaAscii" "C:/Users/evely/UVU/UVU-ADG-Portfolio/MayaProject//Scenes/Modeling/parkingLotSegment.ma";
@@ -14,23 +14,24 @@ requires maya "2025ff03";
 requires "stereoCamera" "10.0";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
 		 "mtoa" "5.4.8.2";
+requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202505300603-a12e894a3d";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 26100)";
-fileInfo "UUID" "790FE3EF-4F91-B031-8405-7A85C68D44F7";
+fileInfo "UUID" "D497A5F3-4BEC-153C-3980-E28F4FD00355";
 createNode transform -s -n "persp";
 	rename -uid "F9551BAE-4B0C-80FB-02A3-D9B01578DD4B";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 24.765585488423415 49.252408102571458 25.456244031299029 ;
-	setAttr ".r" -type "double3" -57.33835272965225 760.59999999984041 4.1889567677988406e-15 ;
+	setAttr ".t" -type "double3" 13.387613053969748 53.00934145450416 90.016649840886771 ;
+	setAttr ".r" -type "double3" -27.938352729584039 713.79999999996653 -3.9990841390366159e-16 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "CC751FA6-494D-E99C-948E-569215F88ABD";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 53.126074546376998;
+	setAttr ".coi" 104.85249357232161;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -4008,21 +4009,41 @@ createNode mesh -n "parkingLotSegment5Shape" -p "parkingLotSegment5";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "spotLight1";
+	rename -uid "3D2F4365-4231-B1CB-7592-8A93BC056FDE";
+	setAttr ".t" -type "double3" 0 23.414543020922 6.4547594540365072 ;
+	setAttr ".r" -type "double3" -73.178500504014877 0 0 ;
+createNode spotLight -n "spotLightShape1" -p "spotLight1";
+	rename -uid "B082BF05-4818-3F99-E770-5D82CE5A7094";
+	setAttr -k off ".v";
+	setAttr ".cl" -type "float3" 0.92699999 0.9849267 1 ;
+	setAttr ".ai_exposure" 10.335051536560059;
+	setAttr ".ai_radius" 1.1855670213699341;
+createNode transform -n "areaLight2";
+	rename -uid "72B70A1A-421D-B9CF-F7AC-308C20AD8FE0";
+	setAttr ".t" -type "double3" -2.9543103747880863 9.2151271271958386 -11.232452343402798 ;
+	setAttr ".r" -type "double3" -190.34402303895899 -23.41694002365691 -175.52390338701133 ;
+	setAttr ".s" -type "double3" 4.0720136455585543 1 1 ;
+createNode areaLight -n "areaLightShape2" -p "areaLight2";
+	rename -uid "64B78814-4F10-A024-AF31-669C44C33D8A";
+	setAttr -k off ".v";
+	setAttr ".cl" -type "float3" 0.72899997 0.82555282 1 ;
+	setAttr ".ai_exposure" 6;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "C1D77E8E-4F44-BEE8-2E34-6B833D5989F7";
+	rename -uid "3B75AC48-48D3-DA44-9AD5-74BF048637CE";
 	setAttr -s 8 ".lnk";
 	setAttr -s 8 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "575EEDAE-4375-E409-4455-0DB16EF20E06";
+	rename -uid "5D88779E-489D-6A1E-F839-3EB22AC74827";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "921B9DD3-4820-29ED-F9FA-A3A08A785298";
+	rename -uid "D221107F-47E4-45DE-5852-59AA1FA284EE";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "C340BD80-44D8-06E3-7217-1A9092A3C948";
+	rename -uid "8A759435-4008-17FF-450A-1F844F0FBDFF";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "5943BF44-47BE-33B5-4C24-2B9E097F634A";
 	setAttr ".ufem" -type "stringArray" 0  ;
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "0AA29CB2-4A89-00A8-688A-2AAEEC11E9B0";
+	rename -uid "D0D86A4F-43AC-C1D1-1C00-45A072B345FC";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "4CFAF4CB-4A90-33D0-3893-8EA025053791";
 	setAttr ".g" yes;
@@ -4031,8 +4052,10 @@ createNode aiOptions -s -n "defaultArnoldRenderOptions";
 	addAttr -ci true -sn "ARV_options" -ln "ARV_options" -dt "string";
 	setAttr ".rndrdvc" 1;
 	setAttr ".rndfb" 1;
+	setAttr ".manualdevs" yes;
+	setAttr ".rndev[0]"  1;
 	setAttr ".version" -type "string" "5.4.8.2";
-	setAttr ".ARV_options" -type "string" "Test Resolution=100%;Camera=picnicBenck:cameraShape1;Color Management.Gamma=1;Color Management.Exposure=0;Background.BG=BG Color;Background.Color=0 0 0;Background.Image=;Background.Scale=1  1;Background.Offset=0  0;Background.Apply Color Management=1;Foreground.Enable FG=0;Foreground.Image=;Foreground.Scale=1  1;Foreground.Offset=0  0;Foreground.Apply Color Management=1;";
+	setAttr ".ARV_options" -type "string" "Test Resolution=100%;Camera=picnicBenck:cameraShape3;Color Management.Gamma=1;Color Management.Exposure=0;Background.BG=BG Color;Background.Color=0 0 0;Background.Image=;Background.Scale=1  1;Background.Offset=0  0;Background.Apply Color Management=1;Foreground.Enable FG=0;Foreground.Image=;Foreground.Scale=1  1;Foreground.Offset=0  0;Foreground.Apply Color Management=1;";
 createNode aiAOVFilter -s -n "defaultArnoldFilter";
 	rename -uid "36C998E9-4174-C7B7-5643-D3B14DD5BFBA";
 	setAttr ".ai_translator" -type "string" "gaussian";
@@ -4076,7 +4099,7 @@ createNode reference -n "picnicBenckRN";
 	setAttr ".ed" -type "dataReferenceEdits" 
 		"picnicBenckRN"
 		"picnicBenckRN" 0
-		"picnicBenckRN" 38
+		"picnicBenckRN" 46
 		2 "|picnicBenck:picnicBench" "translate" " -type \"double3\" -3.92748743816144019 0.28812301158905029 3.62015267995866186"
 		
 		2 "|picnicBenck:picnicBench" "rotate" " -type \"double3\" 0 85.07831883433030384 0"
@@ -4085,9 +4108,9 @@ createNode reference -n "picnicBenckRN";
 		
 		2 "|picnicBenck:pPlane1" "translate" " -type \"double3\" 0 -0.16407732242353479 4.56434923060288966"
 		
-		2 "|picnicBenck:camera1" "translate" " -type \"double3\" -9.58848759225641345 8.22297865589576915 13.32161484271691876"
+		2 "|picnicBenck:camera1" "translate" " -type \"double3\" -7.40413107218932076 9.02090628592357469 14.32178308962634183"
 		
-		2 "|picnicBenck:camera1" "rotate" " -type \"double3\" -21.00000000000042633 -35.60000000000026432 0"
+		2 "|picnicBenck:camera1" "rotate" " -type \"double3\" -24.0000000000005187 -28.00000000000033751 0"
 		
 		2 "|picnicBenck:camera1" "scale" " -type \"double3\" 1 1 1"
 		2 "|picnicBenck:camera1" "shear" " -type \"double3\" 0 0 0"
@@ -4098,9 +4121,11 @@ createNode reference -n "picnicBenckRN";
 		2 "|picnicBenck:camera1" "scalePivotTranslate" " -type \"double3\" 0 0 0"
 		
 		2 "|picnicBenck:camera1" "rotateAxis" " -type \"double3\" 0 0 0"
-		2 "|picnicBenck:camera2" "translate" " -type \"double3\" 11.48253301288828965 6.36084616933221092 13.97716937452142716"
+		2 "|picnicBenck:camera1|picnicBenck:cameraShape1" "centerOfInterest" " 13.14288917808984181"
 		
-		2 "|picnicBenck:camera2" "rotate" " -type \"double3\" -14.99999999999998934 37.60000000000015064 0"
+		2 "|picnicBenck:camera2" "translate" " -type \"double3\" 11.71767467718280642 5.43158679660630916 14.06490413669352257"
+		
+		2 "|picnicBenck:camera2" "rotate" " -type \"double3\" -10.20000000000005969 37.60000000000015064 0"
 		
 		2 "|picnicBenck:camera2" "scale" " -type \"double3\" 1 1 1"
 		2 "|picnicBenck:camera2" "shear" " -type \"double3\" 0 0 0"
@@ -4111,11 +4136,11 @@ createNode reference -n "picnicBenckRN";
 		2 "|picnicBenck:camera2" "scalePivotTranslate" " -type \"double3\" 0 0 0"
 		
 		2 "|picnicBenck:camera2" "rotateAxis" " -type \"double3\" 0 0 0"
-		2 "|picnicBenck:camera2|picnicBenck:cameraShape2" "centerOfInterest" " 13.76187322056689588"
+		2 "|picnicBenck:camera2|picnicBenck:cameraShape2" "centerOfInterest" " 13.76187322056677687"
 		
-		2 "|picnicBenck:camera3" "translate" " -type \"double3\" 4.01529872226019879 12.93825170626080912 25.2718274472232558"
+		2 "|picnicBenck:camera3" "translate" " -type \"double3\" 3.71511133941159555 14.14073824242703736 24.7595450769789629"
 		
-		2 "|picnicBenck:camera3" "rotate" " -type \"double3\" -23.40000000000014424 9.20000000000006146 0"
+		2 "|picnicBenck:camera3" "rotate" " -type \"double3\" -27.00000000000017764 8.800000000000054 0"
 		
 		2 "|picnicBenck:camera3" "scale" " -type \"double3\" 1 1 1"
 		2 "|picnicBenck:camera3" "shear" " -type \"double3\" 0 0 0"
@@ -4126,17 +4151,31 @@ createNode reference -n "picnicBenckRN";
 		2 "|picnicBenck:camera3" "scalePivotTranslate" " -type \"double3\" 0 0 0"
 		
 		2 "|picnicBenck:camera3" "rotateAxis" " -type \"double3\" 0 0 0"
-		2 "|picnicBenck:camera3|picnicBenck:cameraShape3" "centerOfInterest" " 31.50926509149154242"
+		2 "|picnicBenck:camera3|picnicBenck:cameraShape3" "centerOfInterest" " 31.50926509149144294"
 		
 		2 "|picnicBenck:areaLight1" "translate" " -type \"double3\" 12.20772321246674252 17.19269898572478894 14.10936997441909924"
 		
 		2 "|picnicBenck:areaLight1" "rotate" " -type \"double3\" -19.95849607126659464 43.17266644515622431 5.25639274101804332"
 		
+		2 "|picnicBenck:areaLight1|picnicBenck:areaLightShape1" "color" " -type \"float3\" 0.85399997000000005 0.91311054999999997 1"
+		
+		2 "|picnicBenck:areaLight1|picnicBenck:areaLightShape1" "aiExposure" " 9"
+		
+		2 "|picnicBenck:areaLight2" "translate" " -type \"double3\" 5.20490440334391735 9.21512712719584215 -11.23245234340279985"
+		
+		2 "|picnicBenck:areaLight2" "rotate" " -type \"double3\" -208.30707636010001238 47.95452787804899941 -177.34427920771707932"
+		
+		2 "|picnicBenck:areaLight2|picnicBenck:areaLightShape2" "color" " -type \"float3\" 0.77700000999999996 0.89978373 1"
+		
+		2 "|picnicBenck:areaLight2|picnicBenck:areaLightShape2" "aiExposure" " 6"
+		
 		2 "|picnicBenck:areaLight3" "translate" " -type \"double3\" -11.84111353814197365 8.64151136986155777 10.48875762619454299"
 		
 		2 "|picnicBenck:areaLight3" "rotate" " -type \"double3\" -385.74120505511535839 -42.35739190128046516 362.22917228486619479"
 		
-		2 "|picnicBenck:areaLight3|picnicBenck:areaLightShape3" "aiExposure" " 9";
+		2 "|picnicBenck:areaLight3|picnicBenck:areaLightShape3" "color" " -type \"float3\" 0.78900002999999996 1 0.97181039999999996"
+		
+		2 "|picnicBenck:areaLight3|picnicBenck:areaLightShape3" "aiExposure" " 5";
 	setAttr ".ptag" -type "string" "";
 lockNode -l 1 ;
 createNode script -n "uiConfigurationScriptNode";
@@ -4212,7 +4251,7 @@ select -ne :defaultRenderUtilityList1;
 select -ne :defaultRenderingList1;
 	setAttr -s 3 ".r";
 select -ne :lightList1;
-	setAttr -s 3 ".l";
+	setAttr -s 5 ".l";
 select -ne :defaultTextureList1;
 	setAttr -s 25 ".tx";
 select -ne :standardSurface1;
@@ -4234,7 +4273,7 @@ select -ne :defaultResolution;
 	setAttr ".pa" 1;
 	setAttr ".dar" 1;
 select -ne :defaultLightSet;
-	setAttr -s 3 ".dsm";
+	setAttr -s 5 ".dsm";
 select -ne :defaultColorMgtGlobals;
 	setAttr ".cfe" yes;
 	setAttr ".cfp" -type "string" "<MAYA_RESOURCES>/OCIO-configs/Maya2022-default/config.ocio";
@@ -4265,4 +4304,8 @@ connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drive
 connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
 connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
-// End of picnicBenchShowCase.ma
+connectAttr "spotLightShape1.ltd" ":lightList1.l" -na;
+connectAttr "areaLightShape2.ltd" ":lightList1.l" -na;
+connectAttr "spotLight1.iog" ":defaultLightSet.dsm" -na;
+connectAttr "areaLight2.iog" ":defaultLightSet.dsm" -na;
+// End of picnicBenchMood.ma
