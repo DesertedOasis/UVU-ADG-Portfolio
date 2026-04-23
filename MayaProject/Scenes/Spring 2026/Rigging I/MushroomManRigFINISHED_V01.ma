@@ -1,6 +1,6 @@
 //Maya ASCII 2026 scene
-//Name: MushroomManRig_WIP.ma
-//Last modified: Thu, Apr 23, 2026 02:52:41 PM
+//Name: MushroomManRigFINISHED_V01.ma
+//Last modified: Thu, Apr 23, 2026 02:54:48 PM
 //Codeset: 1252
 requires maya "2026";
 requires "stereoCamera" "10.0";
@@ -13,17 +13,17 @@ fileInfo "product" "Maya 2026";
 fileInfo "version" "2026";
 fileInfo "cutIdentifier" "202510291147-60ec9eda33";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 26200)";
-fileInfo "UUID" "824B7ED4-4C1B-CB8A-5C95-4FB1DA229A9C";
+fileInfo "UUID" "D744EFD7-40AF-60A5-337E-299E37AB0D80";
 createNode transform -s -n "persp";
 	rename -uid "6A6EA801-4D8B-B64E-3744-D2A420E3DD5D";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -11.370859706501026 142.91406233015948 630.11430666270155 ;
-	setAttr ".r" -type "double3" 14389.461645390393 36720.199999999742 3.1060293541104059e-18 ;
+	setAttr ".t" -type "double3" 10.507722414972793 102.40912307386687 631.72493560410874 ;
+	setAttr ".r" -type "double3" 14391.86164538879 36718.59999999516 1.2427751535322733e-17 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "30FF1769-4B8F-8860-B962-579331912314";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 617.79804249227504;
+	setAttr ".coi" 617.79804249068002;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -25779,6 +25779,7 @@ createNode transform -n "Spine_01_Ctrl" -p "Spine_01_Ctrl_Grp";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 6;
 	setAttr ".rp" -type "double3" 160.56121275466413 34.361417251831917 -2.7839695361979326e-31 ;
+	setAttr ".rpt" -type "double3" 0 1.3322676295501878e-14 0 ;
 	setAttr ".sp" -type "double3" 160.56121275466413 34.361417251831917 -2.7839695361979326e-31 ;
 createNode nurbsCurve -n "Spine_01_CtrlShape" -p "Spine_01_Ctrl";
 	rename -uid "1F7370E2-42BF-8E48-AB7D-97B68C8A14D7";
@@ -25810,7 +25811,7 @@ createNode transform -n "Spine_02_Ctrl" -p "Spine_02_Ctrl_Grp";
 	rename -uid "EB12871E-4845-DCBB-6B8A-508578B09E6C";
 	setAttr -l on -k off ".v";
 	setAttr ".rp" -type "double3" 185.61556630960689 -1.1818260728744079 -2.4258305027528541e-15 ;
-	setAttr ".rpt" -type "double3" -1.5631940186722204e-13 1.2789769243681803e-13 -4.2632564145606011e-14 ;
+	setAttr ".rpt" -type "double3" -1.7053025658242404e-13 1.3034018309099338e-13 -4.4408920985006262e-14 ;
 	setAttr ".sp" -type "double3" 185.61556630960689 -1.1818260728744079 -2.4258305027528541e-15 ;
 createNode nurbsCurve -n "Spine_02_CtrlShape" -p "Spine_02_Ctrl";
 	rename -uid "E74B62FF-41BA-F342-90D6-63A40D3CA238";
@@ -30410,7 +30411,7 @@ createNode joint -n "L_Shoulder_IK_Jnt" -p "Spine_03_Jnt";
 	setAttr ".oc" 1;
 	setAttr ".ove" yes;
 	setAttr ".ovc" 14;
-	setAttr ".r" -type "double3" 3.5107900433495236 -0.29937171109378075 4.6659261810464674 ;
+	setAttr ".r" -type "double3" 3.510790043349437 -0.29937171109376293 4.6659261810464576 ;
 	setAttr ".s" -type "double3" 1.0000000000000004 1 1.0000000000000002 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
@@ -30422,7 +30423,7 @@ createNode joint -n "L_Elbow_IK_Jnt" -p "L_Shoulder_IK_Jnt";
 	setAttr ".uoc" 1;
 	setAttr ".oc" 2;
 	setAttr ".t" -type "double3" 39.194233805595303 0 -2.2204460492503131e-16 ;
-	setAttr ".r" -type "double3" -1.1728596961179699e-26 -5.0074670103502789e-12 9.1187580027582744e-12 ;
+	setAttr ".r" -type "double3" -1.2717755741038228e-26 -5.429783505199097e-12 9.8878098825089719e-12 ;
 	setAttr ".s" -type "double3" 1.0000000000000002 1 1.0000000000000002 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
@@ -30455,7 +30456,7 @@ createNode orientConstraint -n "L_Wrist_IK_Jnt_orientConstraint1" -p "L_Wrist_IK
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" -3.9091002371322738 -1.1326408035417808 0.54053727174247079 ;
+	setAttr ".lr" -type "double3" -3.9091002371321517 -1.1326408035417581 0.54053727174242872 ;
 	setAttr ".o" -type "double3" 3.8990511548555045 1.1668123483856983 -0.46216462758585991 ;
 	setAttr ".rsrr" -type "double3" -3.1060104311167156e-18 9.3180312933501468e-18 2.981770013872047e-16 ;
 	setAttr -k on ".w0";
@@ -30488,7 +30489,7 @@ createNode joint -n "R_Shoulder_IK_Jnt" -p "Spine_03_Jnt";
 	setAttr ".oc" 1;
 	setAttr ".ove" yes;
 	setAttr ".ovc" 14;
-	setAttr ".r" -type "double3" 3.5115706183747668 -0.26305679147703942 4.1338530042752923 ;
+	setAttr ".r" -type "double3" 3.5115706183749684 -0.26305679147702887 4.1338530042753199 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jot" -type "string" "xzy";
@@ -30499,7 +30500,7 @@ createNode joint -n "R_Elbow_IK_Jnt" -p "R_Shoulder_IK_Jnt";
 	setAttr ".uoc" 1;
 	setAttr ".oc" 2;
 	setAttr ".t" -type "double3" -39.194265042464309 3.2536639551494773e-05 1.0246239250388811e-06 ;
-	setAttr ".r" -type "double3" 1.4790873654192266e-17 -4.464511413575243e-12 8.1299618241442623e-12 ;
+	setAttr ".r" -type "double3" 1.3391736957174079e-17 -4.0421927663451525e-12 7.3609113813198048e-12 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jot" -type "string" "xzy";
@@ -30531,7 +30532,7 @@ createNode orientConstraint -n "R_Wrist_IK_Jnt_orientConstraint1" -p "R_Wrist_IK
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" -3.8423456775654667 -1.1136392545508043 0.53067609748932387 ;
+	setAttr ".lr" -type "double3" -3.8423456775656466 -1.1136392545508642 0.5306760974893372 ;
 	setAttr ".o" -type "double3" 3.8326355451050369 1.146655758934199 -0.45495301931333881 ;
 	setAttr ".rsrr" -type "double3" -7.9203265993476247e-16 -1.5530052155583581e-17 
 		-4.1620539776963991e-16 ;
@@ -46716,4 +46717,4 @@ connectAttr "groupId345.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId346.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId347.msg" ":initialShadingGroup.gn" -na;
 connectAttr "ikRPsolver.msg" ":ikSystem.sol" -na;
-// End of MushroomManRig_WIP.ma
+// End of MushroomManRigFINISHED_V01.ma
